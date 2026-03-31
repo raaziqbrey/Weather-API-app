@@ -113,6 +113,8 @@ class WeatherApp(QWidget):
         self.temperature_label.setFixedHeight(85)
         self.temperature_label.setAlignment(Qt.AlignBottom | Qt.AlignHCenter)
         self.temperature_label.setText(message)
+        self.emoji_label.clear()
+        self.description_label.clear()
 
     def display_weather(self, data):
         temperature_k = data["main"]["temp"]
@@ -120,6 +122,8 @@ class WeatherApp(QWidget):
         weather_id = data["weather"][0]["id"]
         weather_description = data["weather"][0]["description"]
         self.temperature_label.setStyleSheet("font-size: 75px;")
+        self.emoji_label.setStyleSheet("font-size: 100px;")
+        self.description_label.setStyleSheet("font-size: 50px;")
         
         self.temperature_label.setText(f"{temperature_c:.0f}°C")
         self.emoji_label.setText(self.get_weather_emoji(weather_id))

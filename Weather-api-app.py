@@ -117,11 +117,39 @@ class WeatherApp(QWidget):
     def display_weather(self, data):
         temperature_k = data["main"]["temp"]
         temperature_c = temperature_k - 273.15
+        weather_id = data["weather"][0]["id"]
         weather_description = data["weather"][0]["description"]
         self.temperature_label.setStyleSheet("font-size: 75px;")
         
         self.temperature_label.setText(f"{temperature_c:.0f}°C")
+        self.emoji_label.setText(self.get_weather_emoji(weather_id))
         self.description_label.setText(weather_description)
+
+    @staticmethod
+    def get_weather_emoji(weather_id):
+        match weather_id:
+            case _ if 200 <= weather_id <= 232:
+                return  "⛈️"
+            case _ if 300 <= weather_id <= 321:
+                return "🌦️"  
+            case _ if 500 <= weather_id <= 531:
+                return "🌧️"
+            case _ if 600 <= weather_id <= 622:
+                return "❄️"
+            case _ if 701 <= weather_id <= 741:
+                return "🌫️"
+            case 762:
+                return "🌋"
+            case 771:
+                return "💨"
+            case 781:
+                return "🌪️"
+            case 800:
+                return "☀️"
+            case _ if 801 <= 804:
+                return "☁️"
+            case _:
+                return ""
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

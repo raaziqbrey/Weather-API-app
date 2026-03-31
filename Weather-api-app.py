@@ -110,12 +110,18 @@ class WeatherApp(QWidget):
 
     def display_error(self, message):
         self.temperature_label.setStyleSheet("font-size: 30px;")
-        self.temperature_label.setFixedHeight(85    )
+        self.temperature_label.setFixedHeight(85)
         self.temperature_label.setAlignment(Qt.AlignBottom | Qt.AlignHCenter)
         self.temperature_label.setText(message)
 
     def display_weather(self, data):
-        print(data)
+        temperature_k = data["main"]["temp"]
+        temperature_c = temperature_k - 273.15
+        weather_description = data["weather"][0]["description"]
+        self.temperature_label.setStyleSheet("font-size: 75px;")
+        
+        self.temperature_label.setText(f"{temperature_c:.0f}°C")
+        self.description_label.setText(weather_description)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
